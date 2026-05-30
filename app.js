@@ -1,185 +1,645 @@
-const AppState = {
-    isPremiumUser: false,
-    selectedRole: 'host',
-    currentUser: null
-};
-
-// Open-Ended Topic Library Array Data Mockups
-const plugAndPlayTopics = {
-    topic1: "<h3>Curriculum Block: The Creed (CCC Part 1)</h3><p style='margin-top:0.5rem;'>Focus this week centers around Paragraph 26: 'I Believe in God the Father Almighty, Creator of Heaven and Earth.' Examine scriptural ties back to Genesis 1 and the visible framework of order.</p><h4>Discussion Core Prompt:</h4><p style='font-style:italic;'>How does acknowledging God as Creator modify your stance on daily anxieties?</p>",
-    topic2: "<h3>Curriculum Block: Epistles of St. Paul</h3><p style='margin-top:0.5rem;'>Focus tracks through Romans Chapter 12: 'Present your bodies as a living sacrifice, holy and acceptable to God.' Mapping out communal boundaries outside secular fragmentation variables.</p><h4>Discussion Core Prompt:</h4><p style='font-style:italic;'>What practical boundary must your household shift this week to remain a living sacrifice?</p>",
-    topic3: "<h3>Curriculum Block: Sacred Marital Vows</h3><p style='margin-top:0.5rem;'>Focus tracks directly through the Res Tantum architectural pillars: Marriage modeled directly after Christ's alignment to the Holy Church. Exploring sacrificial love loops.</p><h4>Discussion Core Prompt:</h4><p style='font-style:italic;'>Where can you explicitly choose sacrificial concession for your spouse before the upcoming session?</p>"
-};
-
-const coachPodDatabase = [
-    { location: "St. Jude Room (Tuesday Night)", topic: "The Creed Masterclass", schedule: "✅ Confirmed Week 4", score: "96.4% Health Score" },
-    { location: "North Olathe Host Circle (Thursdays)", topic: "Romans Pauline Study", schedule: "✅ Confirmed Week 4", score: "91.8% Health Score" },
-    { location: "Holy Family Annex (Saturdays)", topic: "Res Tantum Marital Core", schedule: "⚠️ Delay Flag (Awaiting Logs)", score: "94.5% Health Score" }
-];
-
-const leadershipMasterCRM = [
-    { name: "Robert Burnos", assignment: "Pod Coach 1 (Oversees 4 Hosts)", email: "bob.b@parishmail.org", role: "Small Group Coach" },
-    { name: "Maria Fernanda", assignment: "Marriage & Family Circle Host", email: "fernanda.n@homemail.com", role: "Small Group Host" },
-    { name: "Simon Johnston", assignment: "Pod Coach 2 (Oversees 3 Hosts)", email: "simon.j@scoutleader.net", role: "Small Group Coach" },
-    { name: "Reston Miller", assignment: "St. Jude Room Session Facilitator", email: "reston.m@fllroboticscoach.org", role: "Small Group Host" }
-];
-
-const premiumAssetsRepo = {
-    agendas: { title: "The 5 Endeavors Meeting Structure (90-Minute Canvas)", description: "A balanced framework combining structured catechesis with unstructured fellowship.", content: "<strong>1. Gathering Buffer (15 min)</strong><br><strong>2. Check-in Opening (10 min)</strong><br><strong>3. Plug Content Module (30 min)</strong><br><strong>4. Vulnerability Core Prompt (25 min)</strong><br><strong>5. Survey Hand-off & Logs (10 min)</strong>" },
-    emails: { title: "Parish Launch Communication Sequences & Bulletins", description: "Strategic campaign strings designed for program admins to introduce small groups.", content: "<div class='template-box-code'><strong>Subject:</strong> Moving Beyond the Crowd: Introducing Koinonia Small Groups<br><br>Dear Parishioners, discipleship doesn't happen sitting in rows; it grows in circles...</div>" },
-    activities: { title: "The Three Bonds Vulnerability Exercises", description: "Icebreakers designed to pivot groups safely away from simple trauma-bonding toward sacramental fellowship.", content: "<h4>The Trust Transition Exercise</h4><p>Plot critical life milestones: Baptism, seasons of trial, and deep peace moments inside the Church.</p>" }
-};
-
-// --- Render Arrays ---
-function renderHostTopic() {
-    const selector = document.getElementById('host-topic-selector');
-    const viewport = document.getElementById('dynamic-topic-content-box');
-    if (selector && viewport) {
-        viewport.innerHTML = plugAndPlayTopics[selector.value];
-    }
+/* --- Global Variable Configuration & Visual Isolation Reset --- */
+:root {
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --bg-dark: #0f172a;             
+    --card-bg: #1e293b; 
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.12);
+    --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-function renderCoachPodView() {
-    const tbody = document.getElementById('coach-pod-table-body');
-    if (!tbody) return;
-    tbody.innerHTML = '';
-    coachPodDatabase.forEach(group => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td><strong>${group.location}</strong></td><td><span class="table-group-tag">${group.topic}</span></td><td><code>${group.schedule}</code></td><td><span class="status-indicator">${group.score}</span></td><td><button class="btn btn-secondary" style="font-size:0.8rem; padding:0.25rem 0.5rem;" onclick="alert('Opening check-in session console...');">Verify Host</button></td>`;
-        tbody.appendChild(row);
-    });
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
 }
 
-function renderCoachAssetSelection() {
-    const selectEl = document.getElementById('coach-asset-selector');
-    const viewport = document.getElementById('coach-asset-viewport');
-    if (!selectEl || !viewport) return;
-    const data = premiumAssetsRepo[selectEl.value];
-    viewport.innerHTML = `<h4>${data.title}</h4><p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">${data.description}</p><div>${data.content}</div>`;
+body { 
+    font-family: var(--font-stack); 
+    background-color: var(--bg-dark); 
+    color: var(--text-main); 
+    line-height: 1.6; 
 }
 
-function renderLeadershipCRMView() {
-    const tbody = document.getElementById('leadership-master-table-body');
-    if (!tbody) return;
-    tbody.innerHTML = '';
-    leadershipMasterCRM.forEach(user => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td><strong>${user.name}</strong></td><td><span class="table-group-tag">${user.assignment}</span></td><td><code>${user.email}</code></td><td><span class="status-indicator" style="color:#c084fc;">${user.role}</span></td><td><button class="btn btn-secondary" style="font-size:0.8rem; padding:0.25rem 0.5rem;" onclick="alert('Accessing localized survey records analysis...');">Review Records</button></td>`;
-        tbody.appendChild(row);
-    });
+.container { 
+    width: 90%; 
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
-// --- Platform Auth Engines ---
-function authenticatePlatformSession() {
-    const roleSelector = document.getElementById('portal-role-selector');
-    if (!roleSelector) return;
-    
-    AppState.isPremiumUser = true;
-    AppState.selectedRole = roleSelector.value;
-    saveToLocalStorage();
-    
-    // Clear out splash view card layout
-    document.getElementById('portal-splash-gateway').innerHTML = `
-        <div style="text-align:center; padding:1rem 0;">
-            <p style="color:#4ade80; font-weight:700;">✅ Secure Access Cleared</p>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">Role-based dashboards loaded below.</p>
-        </div>
-    `;
-    
-    // Smooth navigation into view containers
-    document.getElementById('authorized-platform-core').style.display = 'block';
-    
-    // Hide all panel variants first, then release the matching role targeted screen
-    document.querySelectorAll('.role-panel-suite').forEach(p => p.style.display = 'none');
-    
-    const badge = document.getElementById('role-badge-pill');
-    const title = document.getElementById('role-welcome-title');
-    
-    if (AppState.selectedRole === 'host') {
-        badge.innerText = "SG Grassroots Host";
-        title.innerText = "Plug-and-Play Host Workstation";
-        document.getElementById('panel-host-workspace').style.display = 'block';
-        renderHostTopic();
-    } else if (AppState.selectedRole === 'coach') {
-        badge.innerText = "Extended Admin Pod Coach";
-        title.innerText = "Coach Pod Control Center";
-        document.getElementById('panel-coach-workspace').style.display = 'block';
-        renderCoachPodView();
-        renderCoachAssetSelection();
-    } else if (AppState.selectedRole === 'leadership') {
-        badge.innerText = "Parish Governance Authority";
-        title.innerText = "Pastoral Analytics Command Center";
-        document.getElementById('panel-leadership-workspace').style.display = 'block';
-        renderLeadershipCRMView();
-    }
-    
-    showToastNotification(`🔑 Authorized session established as: ${AppState.selectedRole.toUpperCase()}`);
+/* --- Brand Header Navigation Bar UI --- */
+.navbar { 
+    background: #0f172a; 
+    border-bottom: 1px solid var(--border-color); 
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    z-index: 1000; 
 }
 
-function resetApplicationState() {
-    localStorage.removeItem('final_summit_session_state');
-    AppState.isPremiumUser = false;
-    AppState.selectedRole = 'host';
-    location.reload();
+.navbar-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    height: 70px; 
 }
 
-function saveToLocalStorage() {
-    localStorage.setItem('final_summit_session_state', JSON.stringify({
-        isPremiumUser: AppState.isPremiumUser, selectedRole: AppState.selectedRole
-    }));
+.logo-container-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
 }
 
-function loadFromLocalStorage() {
-    const saved = localStorage.getItem('final_summit_session_state');
-    if (saved) {
-        const parsed = JSON.parse(saved);
-        AppState.isPremiumUser = parsed.isPremiumUser;
-        AppState.selectedRole = parsed.selectedRole;
-    }
+.nav-site-logo {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
 }
 
-function showToastNotification(message) {
-    let toast = document.getElementById('app-toast');
-    if (!toast) return;
-    toast.innerText = message;
-    toast.classList.add('toast-show');
-    setTimeout(() => toast.classList.remove('toast-show'), 3500);
+.logo-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
-// --- Wire Event Handlers ---
-document.addEventListener('DOMContentLoaded', () => {
-    loadFromLocalStorage();
+.nav-links a { 
+    color: var(--text-muted); 
+    text-decoration: none; 
+    margin-left: 1.75rem; 
+    font-weight: 600; 
+    font-size: 0.95rem;
+}
 
-    if (AppState.isPremiumUser) {
-        // Trigger simulation pipeline matching saved session vectors automatically
-        document.getElementById('authorized-platform-core').style.display = 'block';
-        const selectMock = document.getElementById('portal-role-selector');
-        if(selectMock) { selectMock.value = AppState.selectedRole; }
-        authenticatePlatformSession();
-    }
+.nav-links a:hover, .nav-links a.active { 
+    color: var(--primary-color); 
+}
 
-    // Global Login Interceptors
-    document.getElementById('gateway-unlock-btn').addEventListener('click', authenticatePlatformSession);
-    document.getElementById('nav-signin-btn').addEventListener('click', () => {
-        document.getElementById('book-marketing').scrollIntoView({behavior:'smooth'});
-        showToastNotification("✨ Please select your authorized workspace profile tier below.");
-    });
-    document.getElementById('admin-gateway-link').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('book-marketing').scrollIntoView({behavior:'smooth'}); });
+/* --- Control Action Button Infrastructure --- */
+.btn { 
+    padding: 0.65rem 1.4rem; 
+    border-radius: 8px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.2s ease-in-out; 
+    border: none; 
+}
 
-    // Host Workspace Live Topic Select Listener
-    const hostTopicSelect = document.getElementById('host-topic-selector');
-    if (hostTopicSelect) { hostTopicSelect.addEventListener('change', renderHostTopic); }
+.btn-primary { 
+    background-color: var(--primary-color); 
+    color: #ffffff; 
+}
 
-    // Coach Workspace Dropdown Asset Pipeline Listener
-    const coachAssetSelect = document.getElementById('coach-asset-selector');
-    if (coachAssetSelect) { coachAssetSelect.addEventListener('change', renderCoachAssetSelection); }
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
 
-    // Council Print Action Report Trigger
-    const printBtn = document.getElementById('btn-print-summary');
-    if (printBtn) {
-        printBtn.addEventListener('click', () => {
-            showToastNotification("📊 Gathering aggregated parish small group survey data matrices...");
-            setTimeout(() => alert("The Final Summit Summary Report: Packets compiled and transmitted securely to parish leadership offices."), 800);
-        });
-    }
-});
+.btn-secondary { 
+    background-color: rgba(255, 255, 255, 0.05); 
+    color: var(--text-main); 
+    border: 1px solid var(--border-color); 
+}
+
+.btn-secondary:hover { 
+    background-color: rgba(255, 255, 255, 0.12); 
+}
+
+/* --- The Creation of Adam Hero Background Assignment --- */
+.hero.adam-creation-backdrop { 
+    padding: 180px 0 100px 0; 
+    text-align: center; 
+    /* Overwritten to reference michaelangelo.jpg verbatim */
+    background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, #0f172a 100%), 
+                      url('michaelangelo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.hero h1 { 
+    font-size: 3.25rem; 
+    margin-bottom: 1.5rem; 
+    letter-spacing: -0.03em; 
+    line-height: 1.15; 
+    color: #ffffff;
+}
+
+.premium-sparkle { 
+    font-size: 0.75rem; 
+    font-weight: 800; 
+    color: #c084fc; 
+    letter-spacing: 0.15em; 
+    display: block; 
+    margin-bottom: 1rem; 
+}
+
+.hero-mission-statement {
+    max-width: 820px;
+    margin: 1.5rem auto 0 auto;
+    text-align: center;
+    line-height: 1.7;
+    color: #cbd5e1;
+    font-size: 1.05rem;
+}
+
+.hero-emphasis-lead {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+}
+
+.hero-emphasis-break {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #f59e0b; 
+    margin: 1.25rem 0;
+}
+
+.hero-mission-list {
+    text-align: left;
+    display: inline-block;
+    margin: 1.5rem auto 0 auto;
+    padding-left: 1.5rem;
+}
+
+.hero-mission-list li {
+    margin-bottom: 0.6rem;
+    list-style-type: square;
+    color: #94a3b8;
+}
+
+.padded-actions-row {
+    margin-top: 3.5rem !important; 
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+/* --- Programmatic Core Grid Sections --- */
+.services-marketing-section { 
+    padding: 90px 0; 
+    border-bottom: 1px solid var(--border-color); 
+    background-color: #0f172a; 
+}
+
+.section-title { 
+    font-size: 2.25rem; 
+    text-align: center; 
+    margin-bottom: 0.5rem; 
+    letter-spacing: -0.02em; 
+}
+
+.section-lead { 
+    text-align: center;max-width: 800px; 
+    margin: 0 auto 3.5rem auto; 
+    color: var(--text-muted); 
+    font-size: 1.05rem; 
+}
+
+.directory-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 2rem; 
+}
+
+.dir-card { 
+    background-color: var(--card-bg); 
+    border: 1px solid var(--border-color); 
+    padding: 2rem; 
+    border-radius: 16px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.programmatic-card { 
+    min-height: 640px !important; 
+}
+
+.card-brand-img-wrapper {
+    width: 100%;
+    height: 190px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background-color: #020617;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card-brand-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-body-content {
+    flex-grow: 1;
+}
+
+.dir-category { 
+    color: var(--primary-color); 
+    font-weight: 700; 
+    font-size: 0.75rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.05em; 
+    margin-bottom: 0.25rem; 
+    display: block; 
+}
+
+.dir-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+    color: #ffffff;
+}
+
+.program-subtitle { 
+    font-size: 0.85rem; 
+    color: #c084fc; 
+    font-weight: 600; 
+    margin-bottom: 1rem; 
+}
+
+.program-description { 
+    font-size: 0.9rem !important; 
+    color: #cbd5e1 !important; 
+    line-height: 1.55; 
+    text-align: left; 
+}
+
+.dir-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* --- Theological Summary Section & Monstrance Backdrop Layer --- */
+.theology-marketing-section.monstrance-overlay-backdrop { 
+    padding: 110px 0; 
+    background-image: linear-gradient(90deg, #0f172a 35%, rgba(15, 23, 42, 0.88) 60%, rgba(15, 23, 42, 0.1) 100%), 
+                      url('https://images.unsplash.com/photo-1545128485-c400e7702796?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover; 
+    background-position: right center; 
+    background-attachment: fixed; 
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.marketing-container { 
+    display: flex; 
+    gap: 4rem; 
+    align-items: center; 
+}
+
+.marketing-text { 
+    flex: 1.2; 
+}
+
+.glass-content-card { 
+    background-color: rgba(15, 23, 42, 0.9); 
+    backdrop-filter: blur(10px); 
+    padding: 2.5rem; 
+    border-radius: 20px; 
+    border: 1px solid rgba(245, 158, 11, 0.18); 
+    box-shadow: 0 20px 45px rgba(0,0,0,0.5); 
+}
+
+.lead-text { 
+    font-size: 1.1rem; 
+    color: var(--text-muted); 
+    margin-bottom: 2rem; 
+}
+
+.theology-points { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1.5rem; 
+}
+
+.point-item { 
+    border-left: 3px solid #f59e0b; 
+    padding-left: 1.25rem; 
+}
+
+.point-badge { 
+    color: #f59e0b; 
+    font-weight: 700; 
+    font-size: 0.8rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.point-item p {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+}
+
+.audience-card-panel { 
+    flex: 1; 
+}
+
+.audience-box { 
+    background-color: var(--card-bg); 
+    padding: 2.5rem; 
+    border-radius: 20px; 
+    border: 1px solid var(--border-color); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+}
+
+.audience-box h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.audience-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.badge-premium { 
+    display: inline-block; 
+    margin-bottom: 0.75rem; 
+    padding: 0.25rem 0.6rem; 
+    border-radius: 4px; 
+    background: rgba(168, 85, 247, 0.15); 
+    color: #c084fc; 
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.gateway-teaser-lock { 
+    background: rgba(0, 0, 0, 0.3); 
+    border: 1px solid rgba(255,255,255,0.04); 
+    padding: 0.8rem; 
+    border-radius: 8px; 
+    text-align: center; 
+    font-size: 0.8rem; 
+    color: #c084fc; 
+    margin: 1.5rem 0 1rem 0; 
+    font-weight: 600; 
+}
+
+.audience-box .modal-btn-primary {
+    width: 100%;
+    padding: 0.85rem;
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+/* --- Liturgical Accent Section Intermediary Banner --- */
+.liturgical-divider-banner { 
+    padding: 55px 0; 
+    background-color: #090d16; 
+    text-align: center; 
+    border-bottom: 1px solid var(--border-color); 
+}
+
+.latin-inscription { 
+    font-family: Georgia, serif; 
+    font-size: 1.4rem; 
+    font-style: italic; 
+    color: #f59e0b; 
+    letter-spacing: 0.04em; 
+}
+
+.gold-line-separator { 
+    width: 100px; 
+    height: 2px; 
+    background: linear-gradient(90deg, transparent, #f59e0b, transparent); 
+    margin: 1.15rem auto; 
+}
+
+.banner-subtext { 
+    font-size: 0.85rem; 
+    text-transform: uppercase; 
+    letter-spacing: 0.12em; 
+    color: var(--text-muted); 
+}
+
+/* --- Three Hearts Backdropped Admin Center --- */
+.admin-panel-section.hearts-backdrop { 
+    padding: 80px 0; 
+    /* Overwritten to reference holyfamilyhearts_2.jpg verbatim */
+    background-image: linear-gradient(180deg, rgba(9, 13, 22, 0.88) 0%, rgba(9, 13, 22, 0.95) 100%), 
+                      url('holyfamilyhearts_2.jpg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-top: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.admin-tabs { 
+    display: flex; 
+    gap: 1rem; 
+    border-bottom: 1px solid var(--border-color); 
+    margin-bottom: 2rem; 
+    overflow-x: auto; 
+}
+
+.admin-tab-btn { 
+    background: none; 
+    border: none; 
+    color: var(--text-muted); 
+    padding: 1rem; 
+    font-weight: 600; 
+    cursor: pointer; 
+    white-space: nowrap; 
+}
+
+.admin-tab-btn.active { 
+    color: var(--primary-color); 
+    border-bottom: 2px solid var(--primary-color); 
+}
+
+.admin-tab-content { 
+    display: none; 
+}
+
+.admin-tab-content.active-content { 
+    display: block; 
+}
+
+.table-wrapper { 
+    background-color: var(--card-bg); 
+    border-radius: 12px; 
+    overflow: hidden; 
+    border: 1px solid var(--border-color); 
+}
+
+.crm-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    text-align: left; 
+}
+
+.crm-table th, .crm-table td { 
+    padding: 1.15rem; 
+    border-bottom: 1px solid var(--border-color); 
+}
+
+.crm-table th {
+    background-color: rgba(0,0,0,0.2);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+
+.table-group-tag { 
+    background: rgba(59, 130, 246, 0.1); 
+    color: var(--primary-color); 
+    padding: 0.25rem 0.6rem; 
+    border-radius: 4px; 
+    font-size: 0.85rem; 
+}
+
+.status-indicator { 
+    color: #4ade80; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+}
+
+.table-actions { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 1.5rem; 
+}
+
+.custom-select { 
+    width: 100%; 
+    background: #0f172a; 
+    border: 1px solid var(--border-color); 
+    padding: 0.85rem; 
+    color: #ffffff; 
+    border-radius: 8px; 
+}
+
+.asset-display-viewport { 
+    background: rgba(15, 23, 42, 0.9); 
+    padding: 2rem; 
+    border-radius: 12px; 
+    margin-top: 1rem; 
+    border: 1px solid var(--border-color); 
+}
+
+/* Paideia Split Module Grids */
+.training-workspace-wrapper h3 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+.training-course-grid { display: flex; gap: 2rem; margin-top: 1.5rem; }
+.course-outline-sidebar { flex: 1; display: flex; flex-direction: column; gap: 0.65rem; max-width: 260px; }
+.sidebar-module-btn { background-color: var(--card-bg); padding: 1.15rem; border-radius: 8px; border: 1px solid var(--border-color); cursor: pointer; }
+.sidebar-module-btn.active-mod { border-color: var(--primary-color); background: rgba(59,130,246,0.1); }
+.course-display-panel { flex: 2; background-color: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); }
+
+/* Apologetics Workstation Track Layouts */
+.apologetics-workspace { display: flex; gap: 2rem; margin-top: 1.5rem; }
+.defense-selector-buttons { display: flex; flex-direction: column; gap: 0.65rem; flex: 1; max-width: 240px; }
+.defense-node { background-color: var(--card-bg); padding: 1.15rem; border-radius: 8px; border: 1px solid var(--border-color); text-align: left; color: #ffffff; cursor: pointer; font-weight: 500; }
+.defense-node.active-node { border-color: #a855f7; background: rgba(168,85,247,0.1); color: #c084fc; }
+.defense-interactive-panel { flex: 2; background-color: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); }
+
+/* Analytics Column Metrics Graphic Dashboards */
+.analytics-dashboard-grid { display: flex; gap: 2rem; }
+.analytics-card { flex: 1; background-color: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); }
+.chart-container-mock { display: flex; justify-content: space-around; align-items: flex-end; height: 185px; border-bottom: 2px solid var(--border-color); }
+.chart-bar-group { display: flex; flex-direction: column; align-items: center; width: 25%; height: 100%; justify-content: flex-end; }
+.mock-bar-fill { width: 100%; border-radius: 6px 6px 0 0; position: relative; display: flex; align-items: center; justify-content: center; }
+.color-primary { background: var(--primary-color); }
+.color-accent { background: #a855f7; }
+.bar-value { font-size: 0.7rem; color: #ffffff; transform: rotate(-90deg); position: absolute; font-weight: bold; }
+.chart-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem; }
+.kpi-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+.kpi-item { display: flex; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 1.15rem; border-radius: 8px; border: 1px solid var(--border-color); align-items: center; }
+
+/* Functional Workspace Media Windows */
+.video-container { width:100%; aspect-ratio:16/9; background:#000000; border-radius:10px; overflow:hidden; border: 1px solid var(--border-color); }
+.video-container video { width:100%; height:100%; object-fit: cover; }
+.workspace-drawer { position:fixed; top:0; right:-100%; width:100%; max-width:520px; height:100%; background:#0f172a; border-left:1px solid var(--border-color); z-index:2500; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); padding:2.5rem; overflow-y:auto; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+.workspace-drawer.drawer-active { right:0; }
+
+/* Dashboard Core Layer Elements */
+.dashboard-section { padding: 45px 0; background: rgba(59, 130, 246, 0.04); border-bottom: 1px solid var(--border-color); }
+.dashboard-card { background-color: var(--card-bg); border: 1px solid var(--primary-color); padding: 2rem; border-radius: 16px; }
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+.metric-box { background: rgba(0,0,0,0.25); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); }
+.metric-num { font-size: 1.85rem; font-weight: 700; color: #ffffff; }
+.metric-label { font-size: 0.85rem; color: var(--text-muted); }
+.progress-bar-bg { background: rgba(255,255,255,0.08); height: 6px; border-radius: 3px; margin-top: 0.5rem; overflow:hidden; }
+.progress-bar-fill { background: var(--primary-color); height: 100%; transition: width 0.3s; }
+
+#app-toast { position: fixed; bottom: -60px; left: 50%; transform: translateX(-50%); background: #7c3aed; color: white; padding: 0.8rem 1.6rem; border-radius: 30px; font-size: 0.9rem; font-weight: 600; z-index: 3000; transition: bottom 0.3s ease, opacity 0.3s; opacity: 0; box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3); }
+#app-toast.toast-show { bottom: 40px; opacity: 1; }
+
+footer { border-top: 1px solid var(--border-color); padding: 45px 0; text-align: center; color: var(--text-muted); margin-top: 4rem; background-color: #0b1329; }
+.footer-container { display: flex; justify-content: space-between; align-items: center; }
+
+/* Toastmasters Layout Style Architecture Engine */
+.timeline-step-card {
+    display: flex;
+    gap: 1.5rem;
+    background: #1e293b;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+}
+
+.timeline-step-card.dynamic-topic-active {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.03);
+}
+
+.step-badge {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.step-body h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.25rem;
+    color: #ffffff;
+}
+
+.step-body p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.role-panel-suite {
+    animation: fadeInFrame 0.4s ease-out forwards;
+}
+
+@keyframes fadeInFrame {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 992px) {
+    .marketing-container { flex-direction: column; gap: 3rem; }
+    .training-course-grid, .apologetics-workspace, .analytics-dashboard-grid, .footer-container { flex-direction: column; text-align: center; gap: 2rem; }
+    .course-outline-sidebar, .defense-selector-buttons { max-width: 100%; }
+}
