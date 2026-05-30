@@ -8,7 +8,7 @@ const parishCrmDatabase = [
     { name: "Robert Burnos", group: "Men's Sacramental Cohort", email: "bob.b@parishmail.org", status: "Active Leader" },
     { name: "Maria Fernanda", group: "Marriage & Family Circle", email: "fernanda.n@homemail.com", status: "Active Member" },
     { name: "Simon Johnston", group: "Young Adult Apologetics Track", email: "simon.j@scoutleader.net", status: "Active Leader" },
-    { name: "Reston Miller", group: "Tech & Mentorship Hub", email: "reston.m@fllroboticscoach.org", status: "In Training" }
+    { name: "Reston Burnos", group: "Tech & Mentorship Hub", email: "reston.m@fllroboticscoach.org", status: "In Training" }
 ];
 
 const premiumAssetsRepo = {
