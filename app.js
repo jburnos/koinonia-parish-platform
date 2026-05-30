@@ -12,34 +12,31 @@ const parishCrmDatabase = [
 ];
 
 const premiumAssetsRepo = {
-    agendas: { title: "The 5 Endeavors Meeting Structure (90-Minute Canvas)[cite: 1, 3]", description: "A balanced framework combining structured catechesis with unstructured fellowship[cite: 1].", content: "<div class='agenda-timeline'><div class='time-node'><strong>1. Welcome & Food (15 min):</strong> Gathering, refreshments, and check-ins[cite: 1].</div><div class='time-node'><strong>2. Core Check-in (10 min):</strong> Open sharing of personal milestones or challenges[cite: 1].</div><div class='time-node'><strong>3. Catechesis (30 min):</strong> Engaging with sacramental instruction material frameworks[cite: 1].</div><div class='time-node'><strong>4. Unstructured Fellowship (30 min):</strong> Organic connection time[cite: 1].</div></div>" },
-    emails: { title: "Parish Launch Email Sequences & Bulletin Blurbs[cite: 1]", description: "Strategic campaign strings designed for program admins to introduce small groups[cite: 1].", content: "<div class='template-box-code'><strong>Subject:</strong> Moving Beyond the Crowd: Introducing Koinonia Small Groups<br><br>Dear Parishioners, discipleship doesn't happen sitting in rows; it grows in circles[cite: 1]...</div>" },
-    activities: { title: "The Three Bonds Vulnerability Exercises[cite: 1]", description: "Icebreakers designed to pivot groups safely away from simple trauma-bonding toward sacramental fellowship[cite: 1].", content: "<h4>The Trust Transition Exercise[cite: 1]</h4><p>Plot critical life milestones: Baptism, seasons of trial, and deep peace moments inside the Church[cite: 1].</p>" }
+    agendas: { title: "The 5 Endeavors Meeting Structure (90-Minute Canvas)", description: "A balanced framework combining structured catechesis with unstructured fellowship.", content: "<div class='agenda-timeline'><div class='time-node'><strong>1. Welcome & Food (15 min):</strong> Gathering, refreshments, and check-ins.</div><div class='time-node'><strong>2. Core Check-in (10 min):</strong> Open sharing of personal milestones or challenges.</div><div class='time-node'><strong>3. Catechesis (30 min):</strong> Engaging with sacramental instruction material frameworks.</div><div class='time-node'><strong>4. Unstructured Fellowship (30 min):</strong> Organic connection time.</div></div>" },
+    emails: { title: "Parish Launch Email Sequences & Bulletin Blurbs", description: "Strategic campaign strings designed for program admins to introduce small groups.", content: "<div class='template-box-code'><strong>Subject:</strong> Moving Beyond the Crowd: Introducing Koinonia Small Groups<br><br>Dear Parishioners, discipleship doesn't happen sitting in rows; it grows in circles...</div>" },
+    activities: { title: "The Three Bonds Vulnerability Exercises", description: "Icebreakers designed to pivot groups safely away from simple trauma-bonding toward sacramental fellowship.", content: "<h4>The Trust Transition Exercise</h4><p>Plot critical life milestones: Baptism, seasons of trial, and deep peace moments inside the Church.</p>" }
 };
 
 const apologeticsRepo = {
-    eucharist: { title: "Defense Pillar 1: The Real Presence (John Chapter 6)[cite: 1, 2]", premise: "Catholics hold that the Eucharist is the literal Body, Blood, Soul, and Divinity of Jesus Christ[cite: 1, 2].", scripture: "\"Eat the flesh of the Son of Man and drink his blood...\" — John 6:53[cite: 1, 2]", challenge: "A friend says communion is just a metaphor to remember Jesus[cite: 1, 2].", solution: "When disciples took offense and walked away, Jesus did not call it a metaphor[cite: 1, 2]. He turned to the Apostles and asked if they would leave too[cite: 1, 2]." },
-    sacraments: { title: "Defense Pillar 2: The Sacramental Pipeline vs. Solas[cite: 1, 2]", premise: "The Catholic Church offers seven distinct direct channels of assured grace[cite: 1, 2].", scripture: "\"Unless you are born of water and the Spirit...\" — John 3:5[cite: 1, 2]", challenge: "A colleague tells you that good works are completely irrelevant to salvation[cite: 1, 2].", solution: "Works are the living fruit of salvation[cite: 1, 2]. James 2:24 notes that a person is justified by works and not by faith alone[cite: 1, 2]." },
-    authority: { title: "Defense Pillar 3: Apostolic Authority and Unity[cite: 1, 2]", premise: "Without a visible magisterium, protestant communities face a crisis of scriptural interpretation authority[cite: 1, 2].", scripture: "\"On this rock I will build my church...\" — Matthew 16:18[cite: 1, 2]", challenge: "Someone challenges you saying the Bible is the only authority a Christian needs[cite: 1, 2].", solution: "Christ did not write a book; He established a visible Church[cite: 1, 2]. The Church compiled, canonized, and preserved the Holy Scriptures[cite: 1, 2]." }
+    eucharist: { title: "Defense Pillar 1: The Real Presence (John Chapter 6)", premise: "Catholics hold that the Eucharist is the literal Body, Blood, Soul, and Divinity of Jesus Christ.", scripture: "\"Eat the flesh of the Son of Man and drink his blood...\" — John 6:53", challenge: "A friend says communion is just a metaphor to remember Jesus.", solution: "When disciples took offense and walked away, Jesus did not call it a metaphor. He turned to the Apostles and asked if they would leave too." },
+    sacraments: { title: "Defense Pillar 2: The Sacramental Pipeline vs. Solas", premise: "The Catholic Church offers seven distinct direct channels of assured grace.", scripture: "\"Unless you are born of water and the Spirit...\" — John 3:5", challenge: "A colleague tells you that good works are completely irrelevant to salvation.", solution: "Works are the living fruit of salvation. James 2:24 notes that a person is justified by works and not by faith alone." },
+    authority: { title: "Defense Pillar 3: Apostolic Authority and Unity", premise: "Without a visible magisterium, protestant communities face a crisis of scriptural interpretation authority.", scripture: "\"On this rock I will build my church...\" — Matthew 16:18", challenge: "Someone challenges you saying the Bible is the only authority a Christian needs.", solution: "Christ did not write a book; He established a visible Church. The Church compiled, canonized, and preserved the Holy Scriptures." }
 };
 
 const paideiaCourseData = [
-    { id: 0, title: "Module 1: Fostering Intimacy & Safe Vulnerability Boundaries[cite: 1]", videoUrl: "https://www.w3schools.com/html/movie.mp4", curriculumText: "<h4>Ground Rules for Sharing[cite: 1]</h4><ul><li>Active Listening: No feedback unless requested[cite: 1].</li><li>No Time Limits: Share thoroughly[cite: 1].</li><li>Prioritize Feelings Over Debates: Keep discussions relational[cite: 1].</li></ul>" },
-    { id: 1, title: "Module 2: Overcoming Barriers to Active Listening[cite: 1]", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", curriculumText: "<h4>The MaSeR Communication Model[cite: 1]</h4><p>Use the Message-Sender-Receiver model to systematically analyze group dialogue breakdowns objectively[cite: 1].</p>" },
-    { id: 2, title: "Module 3: Navigating the Four Stages of Team Evolution[cite: 1]", videoUrl: "https://www.w3schools.com/html/movie.mp4", curriculumText: "<h4>Recognizing Group Dynamics[cite: 1]</h4><ul><li><strong>Forming:</strong> High enthusiasm, low productivity[cite: 1].</li><li><strong>Storming:</strong> Excitement fades, friction surfaces[cite: 1].</li><li><strong>Norming:</strong> Skills and cohesion increase[cite: 1].</li><li><strong>Performing:</strong> High motivation and unified alignment[cite: 1].</li></ul>" }
+    { id: 0, title: "Module 1: Fostering Intimacy & Safe Vulnerability Boundaries", videoUrl: "https://www.w3schools.com/html/movie.mp4", curriculumText: "<h4>Ground Rules for Sharing</h4><ul><li>Active Listening: No feedback unless requested.</li><li>No Time Limits: Share thoroughly.</li><li>Prioritize Feelings Over Debates: Keep discussions relational.</li></ul>" },
+    { id: 1, title: "Module 2: Overcoming Barriers to Active Listening", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", curriculumText: "<h4>The MaSeR Communication Model</h4><p>Use the Message-Sender-Receiver model to systematically analyze group dialogue breakdowns objectively.</p>" },
+    { id: 2, title: "Module 3: Navigating the Four Stages of Team Evolution", videoUrl: "https://www.w3schools.com/html/movie.mp4", curriculumText: "<h4>Recognizing Group Dynamics</h4><ul><li><strong>Forming:</strong> High enthusiasm, low productivity.</li><li><strong>Storming:</strong> Excitement fades, friction surfaces.</li><li><strong>Norming:</strong> Skills and cohesion increase.</li><li><strong>Performing:</strong> High motivation and unified alignment.</li></ul>" }
 ];
 
-// --- Core Rendering & UI Logic ---
 function renderUserDashboard() {
     const container = document.getElementById('dashboard-container');
     if (!container) return;
     if (!AppState.isPremiumUser) { container.innerHTML = ''; return; }
-
-    const finished = AppState.completedLessons.length;
     container.innerHTML = `
         <section class="dashboard-section"><div class="container"><div class="dashboard-card">
-            <h2>Welcome Back, ${AppState.currentUser.name}[cite: 1]</h2>
-            <p style="color: var(--text-muted);">Secure session verified. You have authorized clearance to internal parish data analytics[cite: 1].</p>
+            <h2>Welcome Back, ${AppState.currentUser.name}</h2>
+            <p style="color: var(--text-muted);">Secure session verified. You have authorized clearance to internal parish data analytics.</p>
         </div></div></section>
     `;
 }
@@ -91,7 +88,7 @@ function renderTrainingModule(index) {
     `;
     document.getElementById('btn-mark-mod-done').addEventListener('click', () => {
         document.getElementById('kpi-moderator-count').innerText = "13 / 16";
-        showToastNotification("✅ Lay Leadership Track progress recorded reactively[cite: 1].");
+        showToastNotification("✅ Lay Leadership Track progress recorded reactively.");
     });
 }
 
@@ -99,10 +96,10 @@ function updateNavbarAuthUI() {
     const btn = document.getElementById('nav-signin-btn');
     if (!btn) return;
     if (AppState.isPremiumUser) {
-        btn.innerHTML = '👑 Dashboard Active[cite: 1]';
+        btn.innerHTML = '👑 Dashboard Active';
         btn.style.background = 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)';
     } else {
-        btn.innerHTML = 'Client Sign In[cite: 3]';
+        btn.innerHTML = 'Client Sign In';
         btn.style.background = '';
     }
 }
@@ -114,11 +111,10 @@ function authenticatePremiumUser() {
     updateNavbarAuthUI();
     renderUserDashboard();
     
-    // Smooth transition past intro splash module directly into the core app features
     document.getElementById('portal-splash-gateway').innerHTML = `
         <div style="text-align:center; padding: 1rem 0;">
             <p style="color:#4ade80; font-weight:700; margin-bottom:0.5rem;">✅ Authorization Cleared</p>
-            <p style="font-size:0.9rem; color:var(--text-muted);">The Parish Command Suite is unlocked below[cite: 1].</p>
+            <p style="font-size:0.9rem; color:var(--text-muted);">The Parish Command Suite is unlocked below.</p>
         </div>
     `;
     
@@ -136,7 +132,7 @@ function resetApplicationState() {
     updateNavbarAuthUI();
     renderUserDashboard();
     document.getElementById('authorized-platform-core').style.display = 'none';
-    location.reload(); // Hard refresh to safely return tracking frames back to default locked positions
+    location.reload(); 
 }
 
 function saveToLocalStorage() {
@@ -162,7 +158,6 @@ function showToastNotification(message) {
     setTimeout(() => toast.classList.remove('toast-show'), 3000);
 }
 
-// --- Event Listeners Mapping Router ---
 document.addEventListener('DOMContentLoaded', () => {
     loadFromLocalStorage();
     updateNavbarAuthUI();
@@ -173,12 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
         renderParishCrm();
     }
 
-    // Sign In Event Listeners
     document.getElementById('nav-signin-btn').addEventListener('click', () => { if(!AppState.isPremiumUser) authenticatePremiumUser(); });
     document.getElementById('gateway-unlock-btn').addEventListener('click', () => { authenticatePremiumUser(); document.getElementById('authorized-platform-core').scrollIntoView({behavior:'smooth'}); });
     document.getElementById('admin-gateway-link').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('book-marketing').scrollIntoView({behavior:'smooth'}); });
 
-    // Admin Tabs Trigger Layouts
     document.querySelectorAll('.admin-tab-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
@@ -209,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('btn-print-summary').addEventListener('click', () => {
-        showToastNotification("📊 Packing analytical records ledger summary[cite: 1]...");
-        setTimeout(() => alert("Koinonia Platform: Dispatched securely to Stakeholders[cite: 1]."), 800);
+        showToastNotification("📊 Packing analytical records ledger summary...");
+        setTimeout(() => alert("Koinonia Platform: Dispatched securely to Stakeholders."), 800);
     });
 });
